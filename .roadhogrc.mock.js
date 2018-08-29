@@ -6,6 +6,7 @@ import { getProfileBasicData } from './mock/profile';
 import { getProfileAdvancedData } from './mock/profile';
 import { getNotices } from './mock/notices';
 import { format, delay } from 'roadhog-api-doc';
+import { getTeam } from './mock/team';
 
 // 是否禁用代理
 const noProxy = process.env.NO_PROXY === 'true';
@@ -135,6 +136,10 @@ const proxy = {
       path: '/base/category/list',
     });
   },
+
+  /* 从下面开始添加新的接口 */
+
+  'GET /api/team': getTeam,
 };
 
 export default (noProxy ? {} : delay(proxy, 1000));

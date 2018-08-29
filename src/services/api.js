@@ -77,3 +77,14 @@ export async function fakeRegister(params) {
 export async function queryNotices() {
   return request('/api/notices');
 }
+
+/* 从下面开始添加新的接口 */
+
+/**
+ * 财富团队成员查询接口
+ * @param params
+ * @returns {Promise<Object>}
+ */
+export async function queryTeam(params) {
+  return request(`/api/team?${stringify(params)}`);
+}
