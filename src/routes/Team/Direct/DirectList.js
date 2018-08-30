@@ -22,13 +22,14 @@ import {
 import StandardTable from 'components/StandardTable';
 import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
 import table2excel from '../../../utils/table2excel';
-import CreatePartnerForm from './CreatePartnerForm';
-import EditPartnerForm from './EditPartnerForm';
-import UnderMemberForm from './UnderMemberForm';
-import RelationTreeForm from './RelationTreeForm';
+// import CreatePartnerForm from './CreatePartnerForm';
+// import EditPartnerForm from './EditPartnerForm';
+// import UnderMemberForm from './UnderMemberForm';
+// import RelationTreeForm from './RelationTreeForm';
 
-import styles from './PartnerList.less';
+import styles from './DirectList.less';
 
+const { RangePicker } = DatePicker;
 const FormItem = Form.Item;
 const { Option } = Select;
 const getValue = obj =>
@@ -43,7 +44,7 @@ const status = ['正常', '正在审核', '已解约'];
   loading: loading.models.team,
 }))
 @Form.create()
-export default class PartnerList extends PureComponent {
+export default class DirectList extends PureComponent {
   state = {
     createModalVisible: false,
     editModalVisible: false,
@@ -217,25 +218,10 @@ export default class PartnerList extends PureComponent {
     const { getFieldDecorator } = this.props.form;
     return (
       <Form onSubmit={this.handleSearch} layout="inline">
-        <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-          <Col md={5} sm={24}>
-            <FormItem label="顾问ID：">
-              {getFieldDecorator('no')(<Input placeholder="请输入顾问ID" />)}
-            </FormItem>
-          </Col>
-          <Col md={5} sm={24}>
-            <FormItem label="姓名：">
-              {getFieldDecorator('name')(<Input placeholder="请输入姓名" />)}
-            </FormItem>
-          </Col>
-          <Col md={5} sm={24}>
-            <FormItem label="证件号：">
-              {getFieldDecorator('code')(<Input placeholder="请输入证件号" />)}
-            </FormItem>
-          </Col>
-          <Col md={5} sm={24}>
-            <FormItem label="手机号：">
-              {getFieldDecorator('phone')(<Input placeholder="请输入手机号" />)}
+        <Row gutter={{ md: 8, lg: 24, xl: 48 }} type="flex" justify="end">
+          <Col md={10} sm={24}>
+            <FormItem label="选择查询日期：">
+              {getFieldDecorator('phone')(<RangePicker placeholder="请选择查询日期" />)}
             </FormItem>
           </Col>
           <Col md={4} sm={24}>
@@ -268,7 +254,7 @@ export default class PartnerList extends PureComponent {
 
     const columns = [
       {
-        title: '顾问ID',
+        title: '员工号',
         dataIndex: 'no',
       },
       {
@@ -276,72 +262,48 @@ export default class PartnerList extends PureComponent {
         dataIndex: 'name',
       },
       {
-        title: '证件号',
+        title: '岗位',
         dataIndex: 'code',
       },
       {
-        title: '手机号',
+        title: '所在公司',
         dataIndex: 'phone',
       },
       {
-        title: '性别',
+        title: '归口事业合伙人',
         dataIndex: 'sex',
       },
       {
-        title: '状态',
+        title: '归口渠道',
         dataIndex: 'status',
-        filters: [
-          {
-            text: status[0],
-            value: 0,
-          },
-          {
-            text: status[1],
-            value: 1,
-          },
-          {
-            text: status[2],
-            value: 2,
-          },
-        ],
-        render(val) {
-          return <Badge status={statusMap[val]} text={status[val]} />;
-        },
       },
       {
-        title: '签约时间',
+        title: '个人完成标保',
         dataIndex: 'updatedAt',
-        sorter: true,
-        render: val => <span>{moment(val).format('YYYY-MM-DD')}</span>,
       },
       {
-        title: '描述',
+        title: '事业合伙人标保',
+        dataIndex: 'description',
+      },
+      {
+        title: '渠道标保',
+        dataIndex: 'description',
+      },
+      {
+        title: '考核标保业绩',
         dataIndex: 'description',
       },
       {
         title: '操作',
         render: val => {
-          if (val.status === 0) {
-            return (
-              <Fragment>
-                <a onClick={() => this.handleEditModalVisible(true)}>编辑</a>
-                <Divider type="vertical" />
-                <a>解约</a>
-                <Divider type="vertical" />
-                <a onClick={() => this.handleUnderModalVisible(true)}>直属成员</a>
-                <Divider type="vertical" />
-                <a onClick={() => this.handleRelationModalVisible(true)}>关系图</a>
-              </Fragment>
-            );
-          } else if (val.status === 1) {
-            return (
-              <Fragment>
-                <a href="">审核</a>
-                <Divider type="vertical" />
-                <a href="">删除</a>
-              </Fragment>
-            );
-          } else return null;
+          return (
+            <Fragment>
+              <a onClick={() => this.handleEditModalVisible(true)}>编辑</a>
+              <Divider type="vertical" />
+              <a>解约</a>
+              <Divider type="vertical" />
+            </Fragment>
+          );
         },
       },
     ];
@@ -405,10 +367,10 @@ export default class PartnerList extends PureComponent {
             />
           </div>
         </Card>
-        <CreatePartnerForm {...parentCreateMethods} modalVisible={createModalVisible} />
-        <EditPartnerForm {...parentEditMethods} modalVisible={editModalVisible} />
-        <UnderMemberForm {...parentUnderMethods} modalVisible={underModalVisible} />
-        <RelationTreeForm {...parentRelationMethods} modalVisible={relationModalVisible} />
+        {/* <CreatePartnerForm {...parentCreateMethods} modalVisible={createModalVisible} /> */}
+        {/* <EditPartnerForm {...parentEditMethods} modalVisible={editModalVisible} /> */}
+        {/* <UnderMemberForm {...parentUnderMethods} modalVisible={underModalVisible} /> */}
+        {/* <RelationTreeForm {...parentRelationMethods} modalVisible={relationModalVisible} /> */}
       </PageHeaderLayout>
     );
   }

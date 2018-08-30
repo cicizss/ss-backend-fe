@@ -94,8 +94,12 @@ export const getRouterData = app => {
     '/': {
       component: dynamicWrapper(app, ['user', 'login'], () => import('../layouts/BasicLayout')),
     },
+    '/team/direct': {
+      // 销售管理——直销团队
+      component: dynamicWrapper(app, ['team'], () => import('../routes/Team/Direct/DirectList')),
+    },
     '/team/partner': {
-      // 财富团队成员——事业合伙人管理
+      // 销售管理——事业合伙人
       component: dynamicWrapper(app, ['team'], () => import('../routes/Team/Partner/PartnerList')),
     },
     '/dashboard/analysis': {

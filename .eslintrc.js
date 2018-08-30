@@ -61,6 +61,7 @@ module.exports = {
     'no-restricted-globals': [0],
     'require-yield': [1],
     'linebreak-style': [0],
+    'react/destructuring-assignment': [0]
   },
   parserOptions: {
     ecmaFeatures: {
