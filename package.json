@@ -17,7 +17,9 @@
     "test": "roadhog test",
     "test:component": "roadhog test ./src/components",
     "test:all": "node ./tests/run-tests.js",
-    "prettier": "prettier --write ./src/**/**/**/*"
+    "prettier": "prettier --write ./src/**/**/**/*",
+    "serve": "serve dist -l 80",
+    "apidoc": "roadhog-api-doc static"
   },
   "dependencies": {
     "@antv/data-set": "^0.9.0",

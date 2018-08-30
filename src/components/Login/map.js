@@ -64,6 +64,21 @@ const map = {
       },
     ],
   },
+  Yanzhengma:{
+    component: Input,
+    props: {
+      size: 'large',
+      prefix: <Icon type="mail" className={styles.prefixIcon} />,
+      placeholder: '请输入验证码',
+    },
+    rules: [
+      {
+        required: true,
+        message: 'Please enter mobile number!',
+      },
+
+    ],
+  },
 };
 
 export default map;
