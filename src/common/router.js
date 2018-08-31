@@ -102,6 +102,14 @@ export const getRouterData = app => {
       // 销售管理——事业合伙人
       component: dynamicWrapper(app, ['team'], () => import('../routes/Team/Partner/PartnerList')),
     },
+    '/team/wealth': {
+      // 销售管理——财富团队
+      component: dynamicWrapper(app, ['team'], () => import('../routes/Team/Wealth/WealthList')),
+    },
+    '/team/channel': {
+      // 销售管理——渠道合作
+      component: dynamicWrapper(app, ['team'], () => import('../routes/Team/Channel/ChannelList')),
+    },
     '/dashboard/analysis': {
       component: dynamicWrapper(app, ['chart'], () => import('../routes/Dashboard/Analysis')),
     },
