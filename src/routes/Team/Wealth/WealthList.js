@@ -290,15 +290,15 @@ export default class WealthList extends PureComponent {
       },
       {
         title: '是否达到展业条件',
-        dataIndex: 'status',
+        dataIndex: 'condition',
       },
       {
         title: '级别',
-        dataIndex: 'status',
+        dataIndex: 'level',
       },
       {
         title: '签约时间',
-        dataIndex: 'updatedAt',
+        dataIndex: 'signTime',
       },
       {
         title: '操作',

@@ -219,12 +219,12 @@ export default class DirectList extends PureComponent {
     return (
       <Form onSubmit={this.handleSearch} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }} type="flex" justify="end">
-          <Col md={10} sm={24}>
+          <Col md={9} sm={24}>
             <FormItem label="选择查询日期：">
-              {getFieldDecorator('phone')(<RangePicker placeholder="请选择查询日期" />)}
+              {getFieldDecorator('date')(<RangePicker placeholder="请选择查询日期" />)}
             </FormItem>
           </Col>
-          <Col md={4} sm={24}>
+          <Col md={5} sm={24}>
             <div style={{ overflow: 'hidden' }}>
               <Button type="primary" htmlType="submit">
                 查询
@@ -263,35 +263,35 @@ export default class DirectList extends PureComponent {
       },
       {
         title: '岗位',
-        dataIndex: 'code',
+        dataIndex: 'jobs',
       },
       {
         title: '所在公司',
-        dataIndex: 'phone',
+        dataIndex: 'company',
       },
       {
         title: '归口事业合伙人',
-        dataIndex: 'sex',
+        dataIndex: 'partner',
       },
       {
         title: '归口渠道',
-        dataIndex: 'status',
+        dataIndex: 'channel',
       },
       {
         title: '个人完成标保',
-        dataIndex: 'updatedAt',
+        dataIndex: 'grbb',
       },
       {
         title: '事业合伙人标保',
-        dataIndex: 'description',
+        dataIndex: 'syhhrbb',
       },
       {
         title: '渠道标保',
-        dataIndex: 'description',
+        dataIndex: 'qdbb',
       },
       {
         title: '考核标保业绩',
-        dataIndex: 'description',
+        dataIndex: 'khbbyj',
       },
       {
         title: '操作',

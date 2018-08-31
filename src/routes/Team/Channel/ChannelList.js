@@ -259,44 +259,40 @@ export default class ChannelList extends PureComponent {
 
     const columns = [
       {
-        title: '员工号',
+        title: '渠道编号',
         dataIndex: 'no',
       },
       {
-        title: '姓名',
-        dataIndex: 'name',
+        title: '联系人',
+        dataIndex: 'contact',
       },
       {
-        title: '岗位',
-        dataIndex: 'code',
+        title: '公司名称',
+        dataIndex: 'company',
       },
       {
-        title: '所在公司',
-        dataIndex: 'phone',
+        title: '签约时间',
+        dataIndex: 'signTime',
       },
       {
-        title: '归口事业合伙人',
-        dataIndex: 'sex',
+        title: '归口服务人',
+        dataIndex: 'waiter',
       },
       {
-        title: '归口渠道',
-        dataIndex: 'status',
+        title: '签约公司',
+        dataIndex: 'signCompany',
       },
       {
-        title: '个人完成标保',
-        dataIndex: 'updatedAt',
+        title: '渠道佣金支出',
+        dataIndex: 'qdyjzc',
       },
       {
-        title: '事业合伙人标保',
-        dataIndex: 'description',
+        title: '服务人佣金',
+        dataIndex: 'fwryj',
       },
       {
-        title: '渠道标保',
-        dataIndex: 'description',
-      },
-      {
-        title: '考核标保业绩',
-        dataIndex: 'description',
+        title: '累计完成标保',
+        dataIndex: 'ljwcbb',
       },
       {
         title: '操作',
