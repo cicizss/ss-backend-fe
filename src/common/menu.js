@@ -249,7 +249,7 @@ const menuData = [
   {
     name: '用户管理',
     icon: 'profile',
-    path: 'user',
+    path: 'userinfo',
     children: [
       {
         name: '用户查询',
