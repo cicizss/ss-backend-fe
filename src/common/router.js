@@ -110,6 +110,14 @@ export const getRouterData = app => {
       // 销售管理——渠道合作
       component: dynamicWrapper(app, ['team'], () => import('../routes/Team/Channel/ChannelList')),
     },
+    '/customer/info': {
+      // 客户管理——客户信息
+      component: dynamicWrapper(app, ['team'], () => import('../routes/Customer/Info/InfoList')),
+    },
+    '/customer/documents': {
+      // 客户管理——保单管理
+      component: dynamicWrapper(app, ['team'], () => import('../routes/Customer/Documents/DocumentsList')),
+    },
     '/dashboard/analysis': {
       component: dynamicWrapper(app, ['chart'], () => import('../routes/Dashboard/Analysis')),
     },

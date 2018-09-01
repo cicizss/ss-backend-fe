@@ -221,7 +221,7 @@ export default class DirectList extends PureComponent {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }} type="flex" justify="end">
           <Col md={9} sm={24}>
             <FormItem label="选择查询日期：">
-              {getFieldDecorator('date')(<RangePicker />)}
+              {getFieldDecorator('date')(<RangePicker/>)}
             </FormItem>
           </Col>
           <Col md={5} sm={24}>
@@ -274,7 +274,7 @@ export default class DirectList extends PureComponent {
         dataIndex: 'ownerpartner',
         render: val => (
           <div>
-            <div>{`${val}人`}</div>
+            <div>{`${val || 0}人`}</div>
             <a onClick={() => this.handleOwnerPartnerModalVisible(true)}>点击查看</a>
           </div>
         ),
@@ -284,7 +284,7 @@ export default class DirectList extends PureComponent {
         dataIndex: 'ownerchannel',
         render: val => (
           <div>
-            <div>{`${val}人`}</div>
+            <div>{`${val || 0}人`}</div>
             <a onClick={() => this.handleOwnerChannelModalVisible(true)}>点击查看</a>
           </div>
         ),
@@ -311,9 +311,9 @@ export default class DirectList extends PureComponent {
           return (
             <Fragment>
               <a onClick={() => this.handleEditModalVisible(true)}>编辑</a>
-              <Divider type="vertical" />
+              <Divider type="vertical"/>
               <a>解约</a>
-              <Divider type="vertical" />
+              <Divider type="vertical"/>
             </Fragment>
           );
         },
@@ -363,7 +363,7 @@ export default class DirectList extends PureComponent {
                   <Button>批量操作</Button>
                   <Dropdown overlay={menu}>
                     <Button>
-                      更多操作 <Icon type="down" />
+                      更多操作 <Icon type="down"/>
                     </Button>
                   </Dropdown>
                 </span>
@@ -380,10 +380,10 @@ export default class DirectList extends PureComponent {
           </div>
         </Card>
 
-        <CreatePartnerForm {...parentCreateMethods} modalVisible={createModalVisible} />
-        <EditPartnerForm {...parentEditMethods} modalVisible={editModalVisible} />
-        <OwnerChannelForm {...parentOwnerChannelMethods} modalVisible={ownerChannelModalVisible} />
-        <OwnerPartnerForm {...parentOwnerPartnerMethods} modalVisible={ownerPartnerModalVisible} />
+        <CreatePartnerForm {...parentCreateMethods} modalVisible={createModalVisible}/>
+        <EditPartnerForm {...parentEditMethods} modalVisible={editModalVisible}/>
+        <OwnerChannelForm {...parentOwnerChannelMethods} modalVisible={ownerChannelModalVisible}/>
+        <OwnerPartnerForm {...parentOwnerPartnerMethods} modalVisible={ownerPartnerModalVisible}/>
       </PageHeaderLayout>
     );
   }

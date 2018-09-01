@@ -22,28 +22,29 @@ import {
 import StandardTable from 'components/StandardTable';
 import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
 import table2excel from '../../../utils/table2excel';
-import CreatePartnerForm from './CreatePartnerForm';
-import EditPartnerForm from './EditPartnerForm';
-import UnderMemberForm from './UnderMemberForm';
-import RelationTreeForm from './RelationTreeForm';
+// import CreatePartnerForm from './CreatePartnerForm';
+// import EditPartnerForm from './EditPartnerForm';
+// import UnderMemberForm from './UnderMemberForm';
+// import RelationTreeForm from './RelationTreeForm';
 
-import styles from './PartnerList.less';
+import styles from './InfoList.less';
 
+const { RangePicker } = DatePicker;
 const FormItem = Form.Item;
 const { Option } = Select;
 const getValue = obj =>
   Object.keys(obj)
     .map(key => obj[key])
     .join(',');
-const statusMap = ['processing', 'success', 'warning'];
-const status = ['已购满5000美金', '未购满5000美金', '尚未购买任何保险'];
+const statusMap = ['default', 'processing', 'success', 'error'];
+const status = ['正常', '正在审核', '已解约'];
 
 @connect(({ team, loading }) => ({
   team,
   loading: loading.models.team,
 }))
 @Form.create()
-export default class PartnerList extends PureComponent {
+export default class InfoList extends PureComponent {
   state = {
     createModalVisible: false,
     editModalVisible: false,
@@ -217,7 +218,7 @@ export default class PartnerList extends PureComponent {
     const { getFieldDecorator } = this.props.form;
     return (
       <Form onSubmit={this.handleSearch} layout="inline">
-        <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+        <Row gutter={{ md: 8, lg: 24, xl: 48 }} type="flex" justify="end">
           <Col md={5} sm={24}>
             <FormItem label="顾问ID：">
               {getFieldDecorator('no')(<Input placeholder="请输入顾问ID" />)}
@@ -269,59 +270,40 @@ export default class PartnerList extends PureComponent {
     const columns = [
       {
         title: '顾问ID',
-        dataIndex: 'richeid',
+        dataIndex: 'no',
       },
       {
         title: '姓名',
-        dataIndex: 'realname',
+        dataIndex: 'name',
       },
       {
         title: '证件号',
-        dataIndex: 'certifyNo',
+        dataIndex: 'code',
       },
       {
         title: '手机号',
-        dataIndex: 'tel',
+        dataIndex: 'phone',
       },
       {
         title: '性别',
         dataIndex: 'sex',
       },
       {
-        title: '归口服务人',
-        dataIndex: 'superior',
+        title: '是否达到展业条件',
+        dataIndex: 'condition',
+      },
+      {
+        title: '级别',
+        dataIndex: 'level',
       },
       {
         title: '签约时间',
-        dataIndex: 'addtime',
-        render: val => <span>{moment(val).format('YYYY-MM-DD')}</span>,
-      },
-      {
-        title: '是否达到展业条件',
-        dataIndex: 'state',
-        filters: [
-          {
-            text: status[0],
-            value: 0,
-          },
-          {
-            text: status[1],
-            value: 1,
-          },
-          {
-            text: status[2],
-            value: 2,
-          },
-        ],
-        render(val) {
-          return <Badge status={statusMap[val]} text={status[val]} />;
-        },
+        dataIndex: 'signTime',
       },
       {
         title: '操作',
-        align: 'center',
         render: val => {
-          if (val.state === 0) {
+          if (val.status === 0) {
             return (
               <Fragment>
                 <a onClick={() => this.handleEditModalVisible(true)}>编辑</a>
@@ -333,7 +315,7 @@ export default class PartnerList extends PureComponent {
                 <a onClick={() => this.handleRelationModalVisible(true)}>关系图</a>
               </Fragment>
             );
-          } else if (val.state === 1) {
+          } else if (val.status === 1) {
             return (
               <Fragment>
                 <a href="">审核</a>
@@ -384,6 +366,16 @@ export default class PartnerList extends PureComponent {
               >
                 新增
               </Button>
+              {selectedRows.length > 0 && (
+                <span>
+                  <Button>批量操作</Button>
+                  <Dropdown overlay={menu}>
+                    <Button>
+                      更多操作 <Icon type="down" />
+                    </Button>
+                  </Dropdown>
+                </span>
+              )}
             </div>
             <StandardTable
               selectedRows={selectedRows}
@@ -395,10 +387,10 @@ export default class PartnerList extends PureComponent {
             />
           </div>
         </Card>
-        <CreatePartnerForm {...parentCreateMethods} modalVisible={createModalVisible} />
-        <EditPartnerForm {...parentEditMethods} modalVisible={editModalVisible} />
-        <UnderMemberForm {...parentUnderMethods} modalVisible={underModalVisible} />
-        <RelationTreeForm {...parentRelationMethods} modalVisible={relationModalVisible} />
+        {/* <CreatePartnerForm {...parentCreateMethods} modalVisible={createModalVisible} /> */}
+        {/* <EditPartnerForm {...parentEditMethods} modalVisible={editModalVisible} /> */}
+        {/* <UnderMemberForm {...parentUnderMethods} modalVisible={underModalVisible} /> */}
+        {/* <RelationTreeForm {...parentRelationMethods} modalVisible={relationModalVisible} /> */}
       </PageHeaderLayout>
     );
   }

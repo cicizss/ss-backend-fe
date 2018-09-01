@@ -184,17 +184,17 @@ const menuData = [
     children: [
       {
         name: '客户管理',
-        path: 'manage',
+        path: 'info',
       },
       {
         name: '保单管理',
-        path: 'insurance',
+        path: 'documents',
       },
     ],
   },
   {
     name: '财务结算',
-    icon: 'form',
+    icon: 'pay-circle-o',
     path: 'cwjs',
     children: [
       {
