@@ -22,10 +22,10 @@ import {
 import StandardTable from 'components/StandardTable';
 import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
 import table2excel from '../../../utils/table2excel';
-// import CreatePartnerForm from './CreatePartnerForm';
-// import EditPartnerForm from './EditPartnerForm';
-// import UnderMemberForm from './UnderMemberForm';
-// import RelationTreeForm from './RelationTreeForm';
+import CreatePartnerForm from './CreatePartnerForm';
+import EditPartnerForm from './EditPartnerForm';
+import OwnerChannelForm from './OwnerChannelForm';
+import OwnerPartnerForm from './OwnerPartnerForm';
 
 import styles from './DirectList.less';
 
@@ -48,8 +48,8 @@ export default class DirectList extends PureComponent {
   state = {
     createModalVisible: false,
     editModalVisible: false,
-    underModalVisible: false,
-    relationModalVisible: false,
+    ownerChannelModalVisible: false,
+    ownerPartnerModalVisible: false,
     expandForm: false,
     selectedRows: [],
     formValues: {},
@@ -174,15 +174,15 @@ export default class DirectList extends PureComponent {
     });
   };
 
-  handleUnderModalVisible = flag => {
+  handleOwnerChannelModalVisible = flag => {
     this.setState({
-      underModalVisible: !!flag,
+      ownerChannelModalVisible: !!flag,
     });
   };
 
-  handleRelationModalVisible = flag => {
+  handleOwnerPartnerModalVisible = flag => {
     this.setState({
-      relationModalVisible: !!flag,
+      ownerPartnerModalVisible: !!flag,
     });
   };
 
@@ -221,7 +221,7 @@ export default class DirectList extends PureComponent {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }} type="flex" justify="end">
           <Col md={9} sm={24}>
             <FormItem label="选择查询日期：">
-              {getFieldDecorator('date')(<RangePicker placeholder="请选择查询日期" />)}
+              {getFieldDecorator('date')(<RangePicker />)}
             </FormItem>
           </Col>
           <Col md={5} sm={24}>
@@ -248,18 +248,18 @@ export default class DirectList extends PureComponent {
       selectedRows,
       createModalVisible,
       editModalVisible,
-      underModalVisible,
-      relationModalVisible,
+      ownerChannelModalVisible,
+      ownerPartnerModalVisible,
     } = this.state;
 
     const columns = [
       {
         title: '员工号',
-        dataIndex: 'no',
+        dataIndex: 'richeid',
       },
       {
         title: '姓名',
-        dataIndex: 'name',
+        dataIndex: 'realname',
       },
       {
         title: '岗位',
@@ -271,15 +271,27 @@ export default class DirectList extends PureComponent {
       },
       {
         title: '归口事业合伙人',
-        dataIndex: 'partner',
+        dataIndex: 'ownerpartner',
+        render: val => (
+          <div>
+            <div>{`${val}人`}</div>
+            <a onClick={() => this.handleOwnerPartnerModalVisible(true)}>点击查看</a>
+          </div>
+        ),
       },
       {
         title: '归口渠道',
-        dataIndex: 'channel',
+        dataIndex: 'ownerchannel',
+        render: val => (
+          <div>
+            <div>{`${val}人`}</div>
+            <a onClick={() => this.handleOwnerChannelModalVisible(true)}>点击查看</a>
+          </div>
+        ),
       },
       {
         title: '个人完成标保',
-        dataIndex: 'grbb',
+        dataIndex: 'grwcbb',
       },
       {
         title: '事业合伙人标保',
@@ -295,7 +307,7 @@ export default class DirectList extends PureComponent {
       },
       {
         title: '操作',
-        render: val => {
+        render: () => {
           return (
             <Fragment>
               <a onClick={() => this.handleEditModalVisible(true)}>编辑</a>
@@ -325,12 +337,12 @@ export default class DirectList extends PureComponent {
       handleModalVisible: this.handleEditModalVisible,
     };
 
-    const parentUnderMethods = {
-      handleModalVisible: this.handleUnderModalVisible,
+    const parentOwnerChannelMethods = {
+      handleModalVisible: this.handleOwnerChannelModalVisible,
     };
 
-    const parentRelationMethods = {
-      handleModalVisible: this.handleRelationModalVisible,
+    const parentOwnerPartnerMethods = {
+      handleModalVisible: this.handleOwnerPartnerModalVisible,
     };
 
     return (
@@ -367,10 +379,11 @@ export default class DirectList extends PureComponent {
             />
           </div>
         </Card>
-        {/* <CreatePartnerForm {...parentCreateMethods} modalVisible={createModalVisible} /> */}
-        {/* <EditPartnerForm {...parentEditMethods} modalVisible={editModalVisible} /> */}
-        {/* <UnderMemberForm {...parentUnderMethods} modalVisible={underModalVisible} /> */}
-        {/* <RelationTreeForm {...parentRelationMethods} modalVisible={relationModalVisible} /> */}
+
+        <CreatePartnerForm {...parentCreateMethods} modalVisible={createModalVisible} />
+        <EditPartnerForm {...parentEditMethods} modalVisible={editModalVisible} />
+        <OwnerChannelForm {...parentOwnerChannelMethods} modalVisible={ownerChannelModalVisible} />
+        <OwnerPartnerForm {...parentOwnerPartnerMethods} modalVisible={ownerPartnerModalVisible} />
       </PageHeaderLayout>
     );
   }
