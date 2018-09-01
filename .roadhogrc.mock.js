@@ -14,7 +14,7 @@ const noProxy = process.env.NO_PROXY === 'true';
 // 代码中会兼容本地 service mock 以及部署站点的静态数据
 const proxy = {
   // 支持值为 Object 和 Array
-  'GET /api/currentUser': {
+  'GET /user/currentUser': {
     $desc: '获取当前用户接口',
     $params: {
       pageSize: {
@@ -30,7 +30,7 @@ const proxy = {
     },
   },
   // GET POST 可省略
-  'GET /api/users': [
+  'GET /user/users': [
     {
       key: '1',
       name: 'John Brown',
@@ -139,7 +139,7 @@ const proxy = {
 
   /* 从下面开始添加新的接口 */
 
-  'GET /api/team': getTeam,
+  'GET /team/queryTeam': getTeam,
 };
 
 export default (noProxy ? {} : delay(proxy, 1000));
