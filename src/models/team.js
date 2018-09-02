@@ -15,7 +15,7 @@ export default {
       const response = yield call(queryTeam, payload);
       yield put({
         type: 'save',
-        payload: response,
+        payload: response.result,
       });
     },
   },

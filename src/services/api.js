@@ -86,7 +86,5 @@ export async function queryNotices() {
  * @returns {Promise<Object>}
  */
 export async function queryTeam(params) {
-  const dd = request(`/team/queryTeam?${stringify(params)}`);
-  console.log(dd)
-  return dd;
+  return request(`/team/queryTeam?${stringify(params)}`);
 }
