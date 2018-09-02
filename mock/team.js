@@ -71,8 +71,8 @@ export function getTeam(req, res, u) {
   };
 
   if (res && res.json) {
-    res.json(result);
+    res.json({result});
   } else {
-    return result;
+    return {result};
   }
 }
