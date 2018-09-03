@@ -113,6 +113,7 @@ class StandardTable extends PureComponent {
           {/*/>*/}
         {/*</div>*/}
         <Table
+          id='exportable'
           loading={loading}
           rowKey={rowKey || 'key'}
           rowSelection={rowSelection}

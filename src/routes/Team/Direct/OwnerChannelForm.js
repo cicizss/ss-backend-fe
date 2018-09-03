@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, PureComponent } from 'react';
 import {
   Form,
   Modal,
@@ -23,96 +23,56 @@ const FormItem = Form.Item;
 const { Option } = Select;
 const { TextArea } = Input;
 
-const OwnerChannelForm = Form.create()(props => {
-  const { modalVisible, form, handleCreate, handleModalVisible } = props;
-  const okHandle = () => {
-    form.validateFields((err, fieldsValue) => {
-      if (err) return;
-      form.resetFields();
-    });
-  };
+@Form.create()
+export default class OwnerChannelForm extends PureComponent {
 
-  const columns = [
-    {
-      title: '顾问ID',
-      dataIndex: 'no',
-    },
-    {
-      title: '姓名',
-      dataIndex: 'name',
-    },
-    {
-      title: '性别',
-      dataIndex: 'sex',
-    },
-    {
-      title: '级别',
-      dataIndex: 'level',
-    },
-    {
-      title: '直属上级',
-      dataIndex: 'superior',
-    },
-    {
-      title: '证件号',
-      dataIndex: 'code',
-    },
-    {
-      title: '手机号',
-      dataIndex: 'phone',
-    },
-    {
-      title: '注册时间',
-      dataIndex: 'regTime',
-    },
-  ];
+  render() {
 
-  const renderForm = (
-    <Row>
-      <Col span={5}>
-        <FormItem labelCol={{ span: 8 }} wrapperCol={{ span: 15 }} label="顾问ID：">
-          {form.getFieldDecorator('no')(<Input placeholder="请输入顾问ID" />)}
-        </FormItem>
-      </Col>
-      <Col span={5}>
-        <FormItem labelCol={{ span: 8 }} wrapperCol={{ span: 15 }} label="姓名：">
-          {form.getFieldDecorator('name')(<Input placeholder="请输入姓名" />)}
-        </FormItem>
-      </Col>
-      <Col span={5}>
-        <FormItem labelCol={{ span: 8 }} wrapperCol={{ span: 15 }} label="证件号：">
-          {form.getFieldDecorator('code')(<Input placeholder="请输入证件号" />)}
-        </FormItem>
-      </Col>
-      <Col span={5}>
-        <FormItem labelCol={{ span: 8 }} wrapperCol={{ span: 15 }} label="手机号：">
-          {form.getFieldDecorator('phone')(<Input placeholder="请输入手机号" />)}
-        </FormItem>
-      </Col>
-      <Col offset={1} span={3}>
-        <div style={{ overflow: 'hidden' }}>
-          <Button type="primary" htmlType="submit">
-            查询
-          </Button>
-        </div>
-      </Col>
-    </Row>
-  );
+    const { currentRowData, modalVisible, form, handleModalVisible } = this.props;
 
-  return (
-    <Modal
-      title="顾问ID：   姓名：   级别：   "
-      visible={modalVisible}
-      onOk={okHandle}
-      onCancel={() => handleModalVisible()}
-      width={1024}
-    >
-      {renderForm}
-      <Card title="直属成员" bordered={false}>
-        {form.getFieldDecorator('members', {})(<Table loading={false} columns={columns} />)}
-      </Card>
-    </Modal>
-  );
-});
+    const columns = [
+      {
+        title: '渠道编号',
+        dataIndex: 'no',
+        key: 'no',
+      },
+      {
+        title: '联系人',
+        dataIndex: 'name',
+      },
+      {
+        title: '渠道公司',
+        dataIndex: 'sex',
+      },
+      {
+        title: '签约公司',
+        dataIndex: 'level',
+      },
+      {
+        title: '累计标保',
+        dataIndex: 'superior',
+      },
+      {
+        title: '签约时间',
+        dataIndex: 'code',
+      },
+    ];
 
-export default OwnerChannelForm;
+    return (
+      <Modal
+        width={1024}
+        title={`${currentRowData.realname}-归口渠道`}
+        visible={modalVisible}
+        onOk={() => handleModalVisible(false)}
+        closable={false}
+        footer={[
+          <span style={{ float: 'left' }}>{`归口渠道${3}个，累计标保${4}元`}</span>,
+          <Button type="primary" onClick={() => handleModalVisible(false)}>确定</Button>,
+        ]}
+      >
+        <Table columns={columns} />
+      </Modal>
+    );
+  }
+
+}
