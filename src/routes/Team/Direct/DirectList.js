@@ -184,9 +184,18 @@ export default class DirectList extends PureComponent {
 
   handleCreate = fields => {
     this.props.dispatch({
-      type: 'team/create',
+      type: 'team/createDirect',
       payload: {
-        description: fields.desc,
+        employeeNo: fields.employeeNo,
+        jobs: fields.jobs,
+        company: fields.company,
+        person: {
+          realName: fields.realName,
+          sex: [fields.sex === 'male'] ? 0 : 1,
+          certifyNo: fields.certifyNo,
+          tel: fields.tel,
+          bankCardNo: fields.bankCardNo,
+        },
       },
     });
 

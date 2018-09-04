@@ -8,11 +8,10 @@ const { TextArea } = Input;
 @Form.create()
 export default class EditDirectForm extends PureComponent {
   okHandle = () => {
-    const { form, handleCreate } = this.props;
+    const { form } = this.props;
     form.validateFields((err, fieldsValue) => {
       if (err) return;
       form.resetFields();
-      handleCreate(fieldsValue);
     });
   };
 

@@ -88,3 +88,15 @@ export async function queryNotices() {
 export async function queryTeam(params) {
   return request(`/team/queryTeam?${stringify(params)}`);
 }
+
+/**
+ * 创建直销员工
+ * @param params
+ * @returns {Promise<Object>}
+ */
+export async function createDirect(params) {
+  return request('/team/createDirect', {
+    method: 'POST',
+    body: params,
+  });
+}

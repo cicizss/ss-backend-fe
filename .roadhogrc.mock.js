@@ -144,6 +144,11 @@ const proxy = {
   /* 从下面开始添加新的接口 */
 
   'GET /team/queryTeam': getTeam,
+
+  // 新增直销员工
+  'POST /team/createDirect': (req, res) => {
+    res.send({ statusCode: 0, message: null, result: {} });
+  },
 };
 
 export default (noProxy ? {} : delay(proxy, 1000));

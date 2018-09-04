@@ -2,8 +2,10 @@ import fetch from 'dva/fetch';
 import { notification } from 'antd';
 import { routerRedux } from 'dva/router';
 import store from '../index';
-import {apiServerAddress} from '../config';
 
+// 是否禁用代理
+const noProxy = true;
+const apiServerAddress = noProxy ? 'http://127.0.0.1:9000' : '';
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
@@ -58,6 +60,8 @@ export default function request(url, options) {
       newOptions.headers = {
         Accept: 'application/json',
         'Content-Type': 'application/json; charset=utf-8',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET,POST,OPTIONS',
         ...newOptions.headers,
       };
       newOptions.body = JSON.stringify(newOptions.body);

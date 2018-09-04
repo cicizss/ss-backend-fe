@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Form, Modal, Row, Col, Input, Select, Checkbox, Icon } from 'antd';
+import { Form, Modal, Row, Col, Input, Select, Checkbox, Icon, Button } from 'antd';
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -7,11 +7,12 @@ const { TextArea } = Input;
 
 @Form.create()
 export default class CreateDirectForm extends PureComponent {
-  okHandle = () => {
+  okHandle = e => {
+    e.preventDefault();
     const { form, handleCreate } = this.props;
     form.validateFields((err, fieldsValue) => {
       if (err) return;
-      form.resetFields();
+      // form.resetFields();
       handleCreate(fieldsValue);
     });
   };
@@ -22,7 +23,7 @@ export default class CreateDirectForm extends PureComponent {
       <Modal
         title="新增直销员工"
         visible={modalVisible}
-        onOk={this.okHandle}
+        // onOk={this.okHandle}
         onCancel={() => handleModalVisible()}
         width={800}
       >
@@ -104,21 +105,15 @@ export default class CreateDirectForm extends PureComponent {
         </Row>
         <Row>
           <Col span={18}>
-            <FormItem labelCol={{ span: 4}} wrapperCol={{ span: 15 }} label="购买保单号：">
-              {form.getFieldDecorator('policyid', {
-                rules: [{ required: true, message: '请输入购买保单号...' }],
-              })(<Input placeholder="请输入购买保单号" />)}
-            </FormItem>
-          </Col>
-        </Row>
-        <Row>
-          <Col span={18}>
             <FormItem labelCol={{ span: 4 }} wrapperCol={{ span: 20 }} label="备注：">
               {form.getFieldDecorator('remark', {
                 rules: [{ required: true, message: '请输入备注内容...' }],
               })(<TextArea placeholder="请输入备注内容" />)}
             </FormItem>
           </Col>
+        </Row>
+        <Row>
+          <Col><Button onClick={this.okHandle} >ssssss</Button></Col>
         </Row>
       </Modal>
     );

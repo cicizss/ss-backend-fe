@@ -1,4 +1,4 @@
-import { queryTeam } from '../services/api';
+import { queryTeam, createDirect } from '../services/api';
 
 export default {
   namespace: 'team',
@@ -18,10 +18,23 @@ export default {
         payload: response.result,
       });
     },
+    *createDirect({ payload }, { call, put }) {
+      const response = yield call(createDirect, payload);
+      yield put({
+        type: 'createDirect',
+        payload: response.result,
+      });
+    },
   },
 
   reducers: {
     save(state, action) {
+      return {
+        ...state,
+        data: action.payload,
+      };
+    },
+    createDirect1(state, action) {
       return {
         ...state,
         data: action.payload,
