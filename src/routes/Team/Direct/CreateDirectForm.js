@@ -29,7 +29,7 @@ export default class CreateDirectForm extends PureComponent {
         <Row>
           <Col span={12}>
             <FormItem labelCol={{ span: 6 }} wrapperCol={{ span: 15 }} label="姓名：">
-              {form.getFieldDecorator('realname', {
+              {form.getFieldDecorator('realName', {
                 rules: [{ required: true, message: '请输入姓名...' }],
               })(<Input placeholder="请输入姓名" />)}
             </FormItem>
@@ -66,9 +66,18 @@ export default class CreateDirectForm extends PureComponent {
         <Row>
           <Col span={18}>
             <FormItem labelCol={{ span: 4 }} wrapperCol={{ span: 10 }} label="银行卡号：">
-              {form.getFieldDecorator('bankcardid', {
+              {form.getFieldDecorator('bankCardNo', {
                 rules: [{ required: true, message: '请输入银行卡号...' }],
               })(<Input placeholder="请输入银行卡号" />)}
+            </FormItem>
+          </Col>
+        </Row>
+        <Row>
+          <Col span={12}>
+            <FormItem labelCol={{ span: 6 }} wrapperCol={{ span: 15 }} label="员工号：">
+              {form.getFieldDecorator('employeeNo', {
+                rules: [{ required: true, message: '请输入员工号...' }],
+              })(<Input placeholder="请输入员工号" />)}
             </FormItem>
           </Col>
         </Row>
