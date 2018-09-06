@@ -18,18 +18,20 @@ import {
   message,
   Badge,
   Divider,
+
 } from 'antd';
 import StandardTable from 'components/StandardTable';
 import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
 import table2excel from '../../../utils/table2excel';
-// import CreatePartnerForm from './CreatePartnerForm';
+import CreateInfoForm from './CreateInfoForm';
+import DetailInfoForm from './DetailInfoForm';
 // import EditPartnerForm from './EditPartnerForm';
 // import UnderMemberForm from './UnderMemberForm';
 // import RelationTreeForm from './RelationTreeForm';
 
 import styles from './InfoList.less';
 
-const { RangePicker } = DatePicker;
+
 const FormItem = Form.Item;
 const { Option } = Select;
 const getValue = obj =>
@@ -38,6 +40,8 @@ const getValue = obj =>
     .join(',');
 const statusMap = ['default', 'processing', 'success', 'error'];
 const status = ['正常', '正在审核', '已解约'];
+const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
+
 
 @connect(({ team, loading }) => ({
   team,
@@ -53,6 +57,7 @@ export default class InfoList extends PureComponent {
     expandForm: false,
     selectedRows: [],
     formValues: {},
+    currentRowData:{}
   };
 
   componentDidMount() {
@@ -62,6 +67,9 @@ export default class InfoList extends PureComponent {
     });
   }
 
+  onChange=(date, dateString)=> {
+    console.log(date, dateString);
+  }
   handleStandardTableChange = (pagination, filtersArg, sorter) => {
     const { dispatch } = this.props;
     const { formValues } = this.state;
@@ -167,7 +175,13 @@ export default class InfoList extends PureComponent {
       createModalVisible: !!flag,
     });
   };
+  handleDetailModalVisible = (flag , currentRowData = {})=> {
 
+    this.setState({
+      detailModalVisible: !!flag,
+      currentRowData,
+    });
+  };
   handleEditModalVisible = flag => {
     this.setState({
       editModalVisible: !!flag,
@@ -220,33 +234,64 @@ export default class InfoList extends PureComponent {
       <Form onSubmit={this.handleSearch} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }} type="flex" justify="end">
           <Col md={5} sm={24}>
-            <FormItem label="顾问ID：">
-              {getFieldDecorator('no')(<Input placeholder="请输入顾问ID" />)}
-            </FormItem>
+            <div style={{marginLeft:10}}>
+              <div>按客户信息查找</div>
+              <FormItem label="客户ID：">
+                {getFieldDecorator('no')(<Input placeholder="请输入客户ID" />)}
+              </FormItem>
+              <FormItem label="手机号：">
+                {getFieldDecorator('name')(<Input placeholder="请输入手机号" />)}
+              </FormItem>
+            </div>
+          </Col>
+
+
+
+          <Col md={5} sm={24}>
+            <div>
+              <div>按理财顾问信息查找</div>
+              <FormItem label="理财顾问：">
+                {getFieldDecorator('code')(<Input placeholder="请输入姓名" />)}
+              </FormItem>
+              <FormItem label="客户来源：">
+                {getFieldDecorator('phone')(<Input placeholder="请输入姓名" />)}
+              </FormItem>
+            </div>
           </Col>
           <Col md={5} sm={24}>
-            <FormItem label="姓名：">
-              {getFieldDecorator('name')(<Input placeholder="请输入姓名" />)}
-            </FormItem>
+            <div>
+              <div>按服务信息查找</div>
+              <FormItem label="服务人：">
+                {getFieldDecorator('code')(<Input placeholder="请输入姓名" />)}
+              </FormItem>
+              <FormItem label="管理人：">
+                {getFieldDecorator('phone')(<Input placeholder="请输入姓名" />)}
+              </FormItem>
+            </div>
           </Col>
           <Col md={5} sm={24}>
-            <FormItem label="证件号：">
-              {getFieldDecorator('code')(<Input placeholder="请输入证件号" />)}
-            </FormItem>
+            <div>
+              <div>按时间搜索查找</div>
+              <FormItem label="服务人：">
+                {getFieldDecorator('code')(  <DatePicker onChange={this.onChange} />
+                )}
+              </FormItem>
+
+            </div>
           </Col>
-          <Col md={5} sm={24}>
-            <FormItem label="手机号：">
-              {getFieldDecorator('phone')(<Input placeholder="请输入手机号" />)}
-            </FormItem>
-          </Col>
+
           <Col md={4} sm={24}>
-            <div style={{ overflow: 'hidden' }}>
+            <div style={{ marginTop:83,marginLeft:-207}}>
+            <span>
               <Button type="primary" htmlType="submit">
                 查询
               </Button>
+              </span>
+              <span>
               <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>
                 导出
               </Button>
+              </span>
             </div>
           </Col>
         </Row>
@@ -303,27 +348,27 @@ export default class InfoList extends PureComponent {
       {
         title: '操作',
         render: val => {
-          if (val.status === 0) {
-            return (
-              <Fragment>
-                <a onClick={() => this.handleEditModalVisible(true)}>编辑</a>
-                <Divider type="vertical" />
-                <a>解约</a>
-                <Divider type="vertical" />
-                <a onClick={() => this.handleUnderModalVisible(true)}>直属成员</a>
-                <Divider type="vertical" />
-                <a onClick={() => this.handleRelationModalVisible(true)}>关系图</a>
-              </Fragment>
-            );
-          } else if (val.status === 1) {
-            return (
-              <Fragment>
-                <a href="">审核</a>
-                <Divider type="vertical" />
-                <a href="">删除</a>
-              </Fragment>
-            );
-          } else return null;
+          // if (val.status === 0) {
+          //   return (
+          //     <Fragment>
+          //       <a onClick={() => this.handleEditModalVisible(true)}>编辑</a>
+          //       <Divider type="vertical" />
+          //       <a>解约</a>
+          //       <Divider type="vertical" />
+          //       <a onClick={() => this.handleUnderModalVisible(true)}>直属成员</a>
+          //       <Divider type="vertical" />
+          //       <a onClick={() => this.handleRelationModalVisible(true)}>关系图</a>
+          //     </Fragment>
+          //   );
+          // } else if (val.status === 1) {
+          return (
+            <Fragment>
+              <a onClick={() => this.handleDetailModalVisible(true)}>详情</a>
+              <Divider type="vertical" />
+
+            </Fragment>
+          );
+          // } else return null;
         },
       },
     ];
@@ -340,6 +385,10 @@ export default class InfoList extends PureComponent {
       handleModalVisible: this.handleCreateModalVisible,
     };
 
+    const parentDetailMethods = {
+      handleDetail: this.handleCreate,
+      handleModalVisible: this.handleDetailModalVisible,
+    };
     const parentEditMethods = {
       handleEdit: this.handleEdit,
       handleModalVisible: this.handleEditModalVisible,
@@ -387,8 +436,9 @@ export default class InfoList extends PureComponent {
             />
           </div>
         </Card>
-        {/* <CreatePartnerForm {...parentCreateMethods} modalVisible={createModalVisible} /> */}
-        {/* <EditPartnerForm {...parentEditMethods} modalVisible={editModalVisible} /> */}
+        <CreateInfoForm {...parentCreateMethods}  />
+        <DetailInfoForm {...parentDetailMethods}  />
+        {/* <EditPartnerForm {...parentEditMethods} modalVisible={editModalVisible} /> */}*/*/*/
         {/* <UnderMemberForm {...parentUnderMethods} modalVisible={underModalVisible} /> */}
         {/* <RelationTreeForm {...parentRelationMethods} modalVisible={relationModalVisible} /> */}
       </PageHeaderLayout>

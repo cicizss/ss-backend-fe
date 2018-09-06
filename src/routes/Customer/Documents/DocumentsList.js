@@ -107,6 +107,9 @@ export default class DocumentsList extends PureComponent {
     });
   };
 
+  onChange=(date, dateString)=> {
+    console.log(date, dateString);
+  }
   handleMenuClick = e => {
     const { dispatch } = this.props;
     const { selectedRows } = this.state;
@@ -219,24 +222,29 @@ export default class DocumentsList extends PureComponent {
     return (
       <Form onSubmit={this.handleSearch} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }} type="flex" justify="end">
-          <Col md={5} sm={24}>
-            <FormItem label="顾问ID：">
-              {getFieldDecorator('no')(<Input placeholder="请输入顾问ID" />)}
+          <Col md={4} sm={24}>
+            <FormItem label="保单号：">
+              {getFieldDecorator('no')(<Input placeholder="请输入保单号" />)}
             </FormItem>
           </Col>
-          <Col md={5} sm={24}>
-            <FormItem label="姓名：">
-              {getFieldDecorator('name')(<Input placeholder="请输入姓名" />)}
+          <Col md={4} sm={24}>
+            <FormItem label="保险公司：">
+              {getFieldDecorator('name')(<Input placeholder="请输入保险公司" />)}
             </FormItem>
           </Col>
-          <Col md={5} sm={24}>
-            <FormItem label="证件号：">
-              {getFieldDecorator('code')(<Input placeholder="请输入证件号" />)}
+          <Col md={4} sm={24}>
+            <FormItem label="产品名称：">
+              {getFieldDecorator('code')(<Input placeholder="请输入产品名称" />)}
             </FormItem>
           </Col>
-          <Col md={5} sm={24}>
-            <FormItem label="手机号：">
-              {getFieldDecorator('phone')(<Input placeholder="请输入手机号" />)}
+          <Col md={4} sm={24}>
+            <FormItem label="理财师：">
+              {getFieldDecorator('phone')(<Input placeholder="请输入姓名" />)}
+            </FormItem>
+          </Col>
+          <Col md={4} sm={24}>
+            <FormItem label="选择日期：">
+              {getFieldDecorator('phone')(<DatePicker onChange={this.onChange} />)}
             </FormItem>
           </Col>
           <Col md={4} sm={24}>
@@ -303,27 +311,27 @@ export default class DocumentsList extends PureComponent {
       {
         title: '操作',
         render: val => {
-          if (val.status === 0) {
-            return (
-              <Fragment>
-                <a onClick={() => this.handleEditModalVisible(true)}>编辑</a>
-                <Divider type="vertical" />
-                <a>解约</a>
-                <Divider type="vertical" />
-                <a onClick={() => this.handleUnderModalVisible(true)}>直属成员</a>
-                <Divider type="vertical" />
-                <a onClick={() => this.handleRelationModalVisible(true)}>关系图</a>
-              </Fragment>
-            );
-          } else if (val.status === 1) {
-            return (
-              <Fragment>
-                <a href="">审核</a>
-                <Divider type="vertical" />
-                <a href="">删除</a>
-              </Fragment>
-            );
-          } else return null;
+          // if (val.status === 0) {
+          //   return (
+          //     <Fragment>
+          //       <a onClick={() => this.handleEditModalVisible(true)}>编辑</a>
+          //       <Divider type="vertical" />
+          //       <a>解约</a>
+          //       <Divider type="vertical" />
+          //       <a onClick={() => this.handleUnderModalVisible(true)}>直属成员</a>
+          //       <Divider type="vertical" />
+          //       <a onClick={() => this.handleRelationModalVisible(true)}>关系图</a>
+          //     </Fragment>
+          //   );
+          // } else if (val.status === 1) {
+          return (
+            <Fragment>
+              <a href="">详情</a>
+              <Divider type="vertical" />
+              {/*<a href="">删除</a>*/}
+            </Fragment>
+          );
+          // } else return null;
         },
       },
     ];
