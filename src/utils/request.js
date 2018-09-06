@@ -5,7 +5,7 @@ import store from '../index';
 
 // 是否禁用代理
 const noProxy = true;
-const apiServerAddress = noProxy ? 'http://127.0.0.1:9000' : '';
+const apiServerAddress = noProxy ? 'http://47.106.176.205:9000' : '';
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
